@@ -12,7 +12,7 @@ function openConnection(): PDO
     // No bugs in this function, just use the right credentials.
     $dbhost = "localhost";
     $dbuser = "becode";
-    $dbpass = "becode123";
+    $dbpass = //"password";
     $db = "fixit";
 
     $driverOptions = [
@@ -26,7 +26,7 @@ function openConnection(): PDO
 
 $pdo = openConnection();
 
-if(!empty($_POST['firstname']) && !empty($_POST['lastname'])) {
+if(!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['sports'])) {
     //@todo possible bug below?
     if(empty($_POST['id'])) {
         $handle = $pdo->prepare('INSERT INTO user (firstname, lastname, year) VALUES (:firstname, :lastname, :year)');
@@ -80,7 +80,7 @@ $handle->execute();
 $users = $handle->fetchAll();
 
 $saveLabel = 'Save record';
-if(!empty($_GET['id'])) {
+if(!empty($_GET['id']) && empty($_POST['id'])) {
 
     $saveLabel = 'Update record';
 
